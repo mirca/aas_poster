@@ -11,9 +11,12 @@
 \usepackage[font=footnotesize]{subfig}
 \usepackage{float}
 \usepackage{setspace}
+\usepackage{amsmath, amssymb, bm}
+\DeclareMathOperator*{\argmin}{arg\,min}
 \onehalfspacing
 \usepackage{mathtools,amsmath,amssymb}
 \usepackage{pstricks,pst-grad}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -47,7 +50,7 @@
   \begin{center}
   \begin{minipage}[c]{0.98\textwidth}
 }{
-  \end{minipage}
+  \end{minipage} 
   \end{center}
 }
 
@@ -148,7 +151,6 @@
 
 %%% Unisiegel
 \begin{minipage}[c][9cm][c]{0.1\textwidth}
-%%% LHS logo
   \begin{center}
     %\includegraphics[width=7cm,angle=0]{}
   \end{center}
@@ -165,7 +167,7 @@
     $^{\star}$ NASA Sagan Fellow}
   \end{center}
 \end{minipage}
-%%% RHS logo
+%%% GK-Logo
 \begin{minipage}[c][9cm][c]{0.1\textwidth}
   \begin{center}
     %\includegraphics[width=7cm,angle=0]{}
@@ -191,10 +193,52 @@
 \begin{center}\pbox{0.8\textwidth}{}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=whiteblue,gradmidpoint=1.0,framesep=1em}{\begin{center}\textbf{Introduction}\end{center}}\end{center}
 \vspace{0.75cm}
 
-%%% Abstract
+\begin{itemize}
+    \item NASA's Kepler and K2 missions have been delivering high-precision time series data for a wide range of stellar types
+    \item However, the existing pipelines~\citep{Luger, Vandenburg} tend to focus on studying isolated stars using simple aperture photometry, performing sub-optimally in crowded fields
+    \item Crowded fields are a challenge for Kepler and K2 and it will also be for TESS
+primarily because of the low resolution and spacecraft motion (in case of K2)
+    \item Although Point Spread Function (PSF) photometry methods has been studying in~\citep{anderson:2000, libralato:2017}
+    \item To address this issue, we present a PSF photometry toolkit for Kepler and K2
+\end{itemize}
+
 \vspace{0.75cm}
 \begin{center}\pbox{0.8\textwidth}{}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=whiteblue,gradmidpoint=1.0,framesep=1em}{\begin{center}\textbf{Methods}\end{center}}\end{center}
 \vspace{0.75cm}
+
+    \begin{center}
+        \textbf{Fitting multiple PSFs jointly}
+    \end{center}
+
+    Consider an experiment that outputs an image with $m$ ($m$ known) stellar objects as a collection of $n$ independent \emph{non-identically} distributed random variables $\bm{Y} \triangleq \{Y_i\}_{i=1}^{n}$ (pixels), each of which has expected value $\mathbb{E}\left[Y_i\right] = \sum_{j=1}^{m}\lambda_i(\bm{\Theta}_j)$, where $\lambda_i$ is the PSF model at the $i$-th pixel, $\bm{\Theta}_j$ is a random vector
+    that encondes the information about, say, flux and center position of the $j$-th star.
+
+
+\begin{align}
+   P\left(\bm{Y} = \bm{y} \Bigr| \left\{\bm{\Theta}_j\right\}_{j=1}^{m} = \left\{\bm{\theta}_j\right\}_{j=1}^{m}\right) = \exp\left({-\sum_{i=1}^{n}\sum_{j=1}^{m}\lambda_i(\bm{\theta}_j)}\right)\prod_{i=1}^{n}\dfrac{\left(\sum_{j=1}^{m}\lambda_i\left(\bm{\theta}_j\right)\right)^{y_i}}{y_i!}.
+\end{align}
+
+Perhaps of more practical interest is the log likelihood function
+\begin{equation}
+    \log  P\left(\bm{Y} = \bm{y} \Bigr| \left\{\bm{\Theta}_j\right\}_{j=1}^{m} = \left\{\bm{\theta}_j\right\}_{j=1}^{m}\right) = \sum_{i=1}^{n}\left(- \sum_{j=1}^{m}\lambda_i(\bm{\theta}_j) + y_i\log\sum_{j=1}^{m}\lambda_i(\bm{\theta}_j) - \log y_i !\right).
+\end{equation}
+
+    Then, the Maximum Likelihood Estimator (MLE) can be formulated as the following optimization problem
+\begin{align}
+    \bm{\theta}^{*}(\bm{y}) = \argmin_{\bm{\theta} \in \Lambda} \sum_{i=1}^{n}\left(\sum_{j=1}^{m}\lambda_i(\bm{\theta}_j) - y_i\log\sum_{j=1}^{m}\lambda_i(\bm{\theta}_j)\right),
+\end{align}
+which is solved numerically. Furthermore, we add prior knownledge on the stars positions, fluxes, and
+sky background, as prior densities, which are often taken to be uniform on $\Lambda$.
+
+    \begin{center}
+        \textbf{Estimating uncertainties using the Cram\'er-Rao Lower Bound}
+    \end{center}
+
+Uncertainties on the fitted values are computed using the Cram\'er-Rao Lower Bound. Mathematically,
+
+        \begin{equation}
+            cov(\bm{\theta}^{*}(\bm{Y})) \leq \left(\mathbb{E}_{\bm{\theta}}\left[\nabla_{\bm{\theta}}\log p(\bm{Y} | \bm{\theta})\left[\nabla_{\bm{\theta}}\log p(\bm{Y} | \bm{\theta}) \right]^{T}  \right]\right)^{-1}\Bigr|_{\substack{\bm{\theta}=\bm{\theta}^{*}(\bm{y})}}
+        \end{equation}
 
 }
 \end{pcolumn}
