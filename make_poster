@@ -1,0 +1,7 @@
+latex poster.tex
+bibtex poster
+latex poster.tex
+dvips poster.dvi
+ps2pdf poster.ps
+rm poster.dvi
+open poster.pdf

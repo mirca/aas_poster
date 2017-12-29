@@ -1,1 +1,9 @@
 .*.swp
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.log
+*.ps
+*.dvi
+*.xml

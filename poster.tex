@@ -258,6 +258,7 @@ Uncertainties on the fitted values are computed using the Cram\'er-Rao Lower Bou
 
     \end{center}
             An object of the PSF model can be instantied as follows\\
+        \texttt{>>> from pyke import KeplerTargetPixelFile} \\
         \texttt{>>> tpf = KeplerTargetPixelFile("ADDRESS\_TO\_TPF")}\\
         \texttt{>>> prf = tpf.get\_prf\_model()}
 
@@ -270,6 +271,7 @@ Uncertainties on the fitted values are computed using the Cram\'er-Rao Lower Bou
     \includegraphics[width=16cm,angle=0]{figs/residuals_c9.eps}
     \includegraphics[width=17cm,angle=0]{figs/lc_c9.eps}
 
+    \texttt{>>> from pyke.prf import SceneModel, PRFPhotometry}\\
     \texttt{>>> scene = SceneModel(prfs=5*[prf])} \\
     \texttt{>>> phot = PRFPhotometry(prior=prior, scene\_model=scene)} \\
     \texttt{>>> results = phot.fit(tpf.flux)} \\
@@ -280,25 +282,23 @@ Uncertainties on the fitted values are computed using the Cram\'er-Rao Lower Bou
 \begin{pcolumn}{0.32}
 \pbox{0.90\textwidth}{65cm}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
 
-\vspace{.5cm}
 \begin{center}\pbox{0.8\textwidth}{}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=whiteblue,gradmidpoint=1.0,framesep=1em}{\begin{center}\textbf{Kepler Faint Stars}\end{center}}\end{center}
 \vspace{.5cm}
 
 \includegraphics[width=16cm,angle=0]{figs/tpf_kep.eps}
     \includegraphics[width=16cm,angle=0]{figs/model_kep.eps}
     \includegraphics[width=16cm,angle=0]{figs/residuals_kep.eps}
-    \includegraphics[width=18cm,angle=0]{figs/faint.eps}
+    \includegraphics[width=16cm,angle=0]{figs/faint.eps}
 
 \begin{center}\pbox{0.8\textwidth}{}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=whiteblue,gradmidpoint=1.0,framesep=1em}{\begin{center}\textbf{Conclusions}\end{center}}\end{center}
+\vspace{.5cm}
 
     \begin{itemize}
         \item We have presented an open-source tool to perform PSF photometry on Kepler and $\mathcal{K}$2 data
             which precisely and accurately estimates stellar positions and fluxes on the CCD
         \item Motion-dependent noise, primarily caused by the subpixel flat-field variations, which are not
             taken into account in the PSF model, is still present. Nevertheless, it can be easily removed
-            by the procedures developed by Luger \textit{et al.}~\cite{luger}, Vanderburg \textit{et al.}~\cite{vanderburg},
-            and Aigrain \textit{et al.}~\cite{aigrain}.
-            on the recovered light curves, but it can be easily removed
+            by the procedures developed by detrending pipelines
         \item As future works, we intend to study novel ways to build the PSF model, especially by using
             data-driven approaches
     \end{itemize}
@@ -306,7 +306,6 @@ Uncertainties on the fitted values are computed using the Cram\'er-Rao Lower Bou
 %%% References
 \bibliographystyle{unsrt}
 \bibliography{poster.bib}
-
 
 }
 \end{pcolumn}
