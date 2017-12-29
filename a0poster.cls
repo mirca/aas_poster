@@ -87,7 +87,7 @@
 \ifanullb
    \setlength{\paperwidth}{119cm}
    \setlength{\paperheight}{87cm}
-   \setlength{\textwidth}{114cm}
+   \setlength{\textwidth}{118cm}
    \setlength{\textheight}{87cm}
 \else\ifanull
         \setlength{\paperwidth}{118.82cm}
@@ -159,7 +159,7 @@
 \renewcommand{\scriptsize}{\fontsize{14.4}{18}\selectfont}   
 \renewcommand{\footnotesize}{\fontsize{17.28}{22}\selectfont}
 \renewcommand{\small}{\fontsize{20.74}{25}\selectfont}
-\renewcommand{\normalsize}{\fontsize{24.88}{30}\selectfont}
+\renewcommand{\normalsize}{\fontsize{27.88}{30}\selectfont}
 \renewcommand{\large}{\fontsize{29.86}{37}\selectfont}
 \renewcommand{\Large}{\fontsize{35.83}{45}\selectfont}
 \renewcommand{\LARGE}{\fontsize{43}{54}\selectfont}
