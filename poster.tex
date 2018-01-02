@@ -17,7 +17,6 @@
 \onehalfspacing
 \usepackage{mathtools}
 \usepackage{pstricks,pst-grad}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Definition of some variables and colors
 %\renewcommand{\rho}{\varrho}
@@ -155,15 +154,17 @@
 %%% Titel
 \begin{minipage}[c][16cm][c]{0.78\textwidth}
   \begin{center}
-      {\sc \Huge \textbf{A PSF photometry tool for NASA's Kepler,} $\mathcal{K}\mathbf{2}$\textbf{, and TESS missions}}\\[7mm]
+      {\sc \Huge \textbf{A PSF photometry tool for NASA's Kepler,} $\bm{\mathcal{K}\mathit{2}}$\textbf{, and TESS missions}}\\[7mm]
       {\Large \textbf{Jos\'e Vin\'icius de Miranda Cardoso}$^{1, 2, 4}$, \textbf{Geert Barentsen}$^{1, 2}$,
-       \textbf{Ben Montet}$^{3, \bm{\star}}$,}\\
-      {\Large \textbf{Ann Marie Cody}$^{1, 2}$,
-       \textbf{Christina Hedges}$^{1, 2}$ and \textbf{Michael Gully-Santiago}$^{1, 2}$}\\
+       \textbf{Ben Montet}$^{3, \bm{\star}}$, \textbf{Ann Marie Cody}$^{1, 2}$,}\\
+      {\Large
+       \textbf{Christina Hedges}$^{1, 2}$, \textbf{Michael Gully-Santiago}$^{1, 2}$, \textbf{Martin Still}$^{4}$, and
+       \textbf{Thomas Barclay}$^{5}$}\\
       {\Large $^{1}$NASA Ames Research Center, Moutain View, CA, USA\\
        $^{2}$Bay Area Environmental Research Institute, Petaluma, CA, USA\\
        $^{3}$Department of Astrophysics, University of Chicago, IL, USA\\
-       $^{4}$Federal University of Campina Grande, Campina Grande, Brazil\\
+       $^{4}$NASA Headquarters, Washington DC, USA\\
+       $^{5}$NASA Goddard Space Flight Center, Greenbelt, MD, USA\\
        $^{\bm{\star}}$NASA Sagan Fellow}
   \end{center}
 \end{minipage}
@@ -191,14 +192,14 @@
 \vspace{0.75cm}
 
 \begin{itemize}
-    \item NASA's Kepler and K2 missions have been delivering high-precision time series data for a wide range of stellar types
+    \item NASA's Kepler and $\mathcal{K}\mathit{2}$ missions have been delivering high-precision time series data for a wide range of stellar types.
     \item However, both the official and community developed pipelines~\cite{luger, vanderburg, aigrain} tend to focus on studying
-          isolated stars using simple aperture photometry, hence performing sub-optimally in crowded fields
+          isolated stars using simple aperture photometry, which tends to perform sub-optimally in crowded fields and on faint stars. \cite{anderson, libralato1, heasley}.
     \item Although Point Spread Function (PSF) photometry methods are well
-          known~\cite{anderson, libralato1}, as of now, there exist
-          no open source tool that takes into account the caveats inherent in Kepler and $\mathcal{K}$2 data
-    \item To address this issue, we present an open source PSF photometry toolkit for Kepler and K2
-        and extensible to TESS, as part of the $\mathcal{K}2$ Guest Obverser Office data analysis tool, PyKE
+          known~\cite{anderson, libralato1, heasley}, open source tools to perform PSF photometry specifically on Kepler and
+          $\mathcal{K}\mathit{2}$ data are scarce.
+          To address this issue, we present an open source PSF photometry toolkit for Kepler and $\mathcal{K}\mathit{2}$,
+        and extensible to TESS, as part of the $\mathcal{K}\mathit{2}$ Guest Observer Office data analysis tool, PyKE.
 \end{itemize}
 
 \vspace{0.75cm}
@@ -209,35 +210,38 @@
         \textbf{Fitting multiple PSFs jointly}
     \end{center}
 
-    Consider an experiment that outputs an image with $m$ ($m$ known) stellar objects as a collection of $n$ independent \emph{non-identically} distributed random variables $\bm{Y} \triangleq \{Y_i\}_{i=1}^{n}$ (pixels), each of which has expected value $\mathbb{E}\left[Y_i\right] = \sum_{j=1}^{m}\lambda_i(\bm{\Theta}_j)$, where $\lambda_i$ is the PSF model at the $i$-th pixel, $\bm{\Theta}_j$ is a random vector
-    that encondes the information about flux and center position of the $j$-th star. Hence, the likelihood function can be
-    written as
+    Given an image with $n$ pixels and $m$ stars, we treat the pixel values $Y_i$ as
+    independent \emph{non-identically} distributed Poisson random variables $\bm{Y} \triangleq \{Y_i\}_{i=1}^{n}$
+    such that $\mathbb{E}\left[Y_i\right] = \sum_{j=1}^{m}\lambda_i(\bm{\Theta}_j)$,
+    where $\lambda_i$ is the PSF model at the $i$-th pixel and $\bm{\Theta}_j$ is the
+    vector of random variables which encode the flux and center of each star and the background.
+
+    The likelihood function of the pixel values given the model parameters can then be written as
 \begin{align}
    P\left(\bm{Y} = \bm{y} \Bigr| \left\{\bm{\Theta}_j\right\}_{j=1}^{m} = \left\{\bm{\theta}_j\right\}_{j=1}^{m}\right) = \exp\left({-\sum_{i=1}^{n}\sum_{j=1}^{m}\lambda_i(\bm{\theta}_j)}\right)\prod_{i=1}^{n}\dfrac{\left(\sum_{j=1}^{m}\lambda_i\left(\bm{\theta}_j\right)\right)^{y_i}}{y_i!}.
 \end{align}
 
-Perhaps of more practical interest is the log likelihood function
+And the log likelihood function is
 \begin{equation}
     \log  P\left(\bm{Y} = \bm{y} \Bigr| \left\{\bm{\Theta}_j\right\}_{j=1}^{m} = \left\{\bm{\theta}_j\right\}_{j=1}^{m}\right) = \sum_{i=1}^{n}\left(- \sum_{j=1}^{m}\lambda_i(\bm{\theta}_j) + y_i\log\sum_{j=1}^{m}\lambda_i(\bm{\theta}_j)\right).
 \end{equation}
 
-    Hence, the Maximum Likelihood Estimator (MLE) can be formulated as the following optimization problem
+    Hence, the Maximum Likelihood Estimator can be formulated as the following optimization problem
 \begin{align}
     \bm{\theta}^{*}(\bm{y}) = \argmin_{\bm{\theta} \in \Lambda} \sum_{i=1}^{n}\left(\sum_{j=1}^{m}\lambda_i(\bm{\theta}_j) - y_i\log\sum_{j=1}^{m}\lambda_i(\bm{\theta}_j)\right).
 \end{align}
-Furthermore, prior probability densities (often taken to be uniform on $\Lambda$) on the stars positions, fluxes, and
-sky background, are used.
+Note that it is often necessary to impose prior probability densities on the model parameters
+    to aid the optimization.
 
 \vspace{0.75cm}
     \begin{center}
         \textbf{Estimating uncertainties using the Cram\'er-Rao Lower Bound}
     \end{center}
 
-Uncertainties on the fitted values are computed using the Cram\'er-Rao Lower Bound. Mathematically,
+Uncertainties on the fitted parameters are approximated using the Cram\'er-Rao Lower Bound. Mathematically,
         \begin{equation}
-            cov(\bm{\theta}^{*}(\bm{Y})) \leq \left(\mathbb{E}_{\bm{\theta}}\left[\nabla_{\bm{\theta}}\log p(\bm{Y} | \bm{\theta})\left[\nabla_{\bm{\theta}}\log p(\bm{Y} | \bm{\theta}) \right]^{T}  \right]\right)^{-1}\Bigr|_{\substack{\bm{\theta}=\bm{\theta}^{*}(\bm{y})}}
+            cov(\bm{\theta}^{*}(\bm{Y})) \geq \left(\mathbb{E}_{\bm{\theta}}\left[\nabla_{\bm{\theta}}\log p(\bm{Y} | \bm{\theta})\left[\nabla_{\bm{\theta}}\log p(\bm{Y} | \bm{\theta}) \right]^{T}  \right]\right)^{-1}\Bigr|_{\substack{\bm{\theta}=\bm{\theta}^{*}(\bm{y})}}
         \end{equation}
-
 }
 \end{pcolumn}
 \begin{pcolumn}{0.32}
@@ -248,23 +252,27 @@ Uncertainties on the fitted values are computed using the Cram\'er-Rao Lower Bou
         \textbf{The Kepler Pixel Response Function Model}
         \begin{itemize}
             \item Kepler's pixel response function (PRF) has been shown to be nonsymmetric and spatially variant
-                accross the detector~\cite{bryson}
-            \item The PRF model used in PyKE is constructed following a similar procedure as stated by
-                Bryson \textit{et al.}~\cite{bryson}
+                  accross the detector~\cite{bryson}.
+            \item The PRF model used in PyKE is based on dithered data acquired during Kepler's comissioning phase~\cite{bryson}.
         \end{itemize}
 
         \includegraphics[width=15cm,angle=0]{figs/prf.eps}
         \includegraphics[width=16.5cm,angle=0]{figs/prf-deg-45.eps}
 
     \end{center}
-            An object of the PSF model can be instantied as follows\\
+            Using the PyKE package in Python, the PSF model for a given detector position can be instantiated using the information
+            contained in Kepler Target Pixel File (TPF) header:\\
         \texttt{>>> from pyke import KeplerTargetPixelFile} \\
-        \texttt{>>> tpf = KeplerTargetPixelFile("ADDRESS\_TO\_TPF")}\\
+        \texttt{>>> tpf = KeplerTargetPixelFile("PATH\_TO\_TPF")}\\
         \texttt{>>> prf = tpf.get\_prf\_model()}
 
 %%% Section
         \vspace{1.25cm}
 \begin{center}\pbox{0.8\textwidth}{}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=whiteblue,gradmidpoint=1.0,framesep=1em}{\begin{center}\textbf{Crowded K2 Clusters}\end{center}}\end{center}\vspace{1.25cm}
+
+Having instantiated suitable PSF models for a set of stars, we can use PyKE to fit the joint model
+to the data.  In the example shown here, we fit data from the crowded Lagoon Nebula cluster
+observed during K2 Campaign 9.
 
     \includegraphics[width=16cm,angle=0]{figs/tpf_c9.eps}
     \includegraphics[width=16cm,angle=0]{figs/model_c9.eps}
@@ -285,6 +293,13 @@ Uncertainties on the fitted values are computed using the Cram\'er-Rao Lower Bou
 \begin{center}\pbox{0.8\textwidth}{}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=whiteblue,gradmidpoint=1.0,framesep=1em}{\begin{center}\textbf{Kepler Faint Stars}\end{center}}\end{center}
 \vspace{.5cm}
 
+In addition to being necessary in crowded fields, we find that PSF photometry
+also benefits the light curves of faint stars. For example, star \texttt{KIC 6444896}
+is known to contain a small planet, Kepler-1649b~\cite{isabel}.
+Using PSF photometry, we recover the planet signal at a higher SNR.
+Unlike aperture photometry, PSF photometry is not sensitive to the choice
+of an aperture mask (which is significant for faint stars).
+
 \includegraphics[width=16cm,angle=0]{figs/tpf_kep.eps}
     \includegraphics[width=16cm,angle=0]{figs/model_kep.eps}
     \includegraphics[width=16cm,angle=0]{figs/residuals_kep.eps}
@@ -294,13 +309,10 @@ Uncertainties on the fitted values are computed using the Cram\'er-Rao Lower Bou
 \vspace{.5cm}
 
     \begin{itemize}
-        \item We have presented an open-source tool to perform PSF photometry on Kepler and $\mathcal{K}$2 data
-            which precisely and accurately estimates stellar positions and fluxes on the CCD
-        \item Motion-dependent noise, primarily caused by the subpixel flat-field variations, which are not
-            taken into account in the PSF model, is still present. Nevertheless, it can be easily removed
-            by the procedures developed by detrending pipelines
-        \item As future works, we intend to study novel ways to build the PSF model, especially by using
-            data-driven approaches
+        \item We have presented an open-source tool to perform PSF photometry on Kepler and $\mathcal{K}\mathit{2}$ data.
+        \item For crowded clusters and faint stars, we find that PSF photometry can outperform aperture photometry.
+        \item In future work, we intend to infer the PSF model from nearby stars to improve the accuracy of the fit.
+            We will also study the performance as a function of stellar brightness and crowding.
     \end{itemize}
 
 %%% References
