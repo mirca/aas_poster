@@ -12,6 +12,7 @@
 \usepackage[font=footnotesize]{subfig}
 \usepackage{float}
 \usepackage{setspace}
+\usepackage{wrapfig}
 \usepackage{amsmath, amssymb, bm}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \onehalfspacing
@@ -24,6 +25,11 @@
 \setlength{\columnsep}{.5cm}
 \setlength{\columnseprule}{2mm}
 \setlength{\parindent}{0.0cm}
+
+\usepackage{titlesec}
+
+\titlespacing*{\section}
+{0pt}{1ex}{1ex}
 
 
 
@@ -156,7 +162,7 @@
   \begin{center}
       {\sc \Huge \textbf{A PSF photometry tool for NASA's Kepler,} $\bm{\mathcal{K}\mathit{2}}$\textbf{, and TESS missions}}\\[7mm]
       {\Large \textbf{Jos\'e Vin\'icius de Miranda Cardoso}$^{1, 2, 4}$, \textbf{Geert Barentsen}$^{1, 2}$,
-       \textbf{Ben Montet}$^{3, \bm{\star}}$, \textbf{Ann Marie Cody}$^{1, 2}$,}\\
+       \textbf{Benjamin T. Montet}$^{3, \bm{\star}}$, \textbf{Ann Marie Cody}$^{1, 2}$,}\\
       {\Large
        \textbf{Christina Hedges}$^{1, 2}$, \textbf{Michael Gully-Santiago}$^{1, 2}$, \textbf{Martin Still}$^{4}$, and
        \textbf{Thomas Barclay}$^{5}$}\\
@@ -186,7 +192,7 @@
 %%%%%%%%%%%%%%%%%%%%%
 \begin{center}
 \begin{pcolumn}{0.32}
-\pbox{0.90\textwidth}{65cm}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
+\pbox{0.90\textwidth}{69cm}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
 
 \begin{center}\pbox{0.8\textwidth}{}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=whiteblue,gradmidpoint=1.0,framesep=1em}{\begin{center}\textbf{Introduction}\end{center}}\end{center}
 \vspace{0.75cm}
@@ -194,9 +200,9 @@
 \begin{itemize}
     \item NASA's Kepler and $\mathcal{K}\mathit{2}$ missions have been delivering high-precision time series data for a wide range of stellar types.
     \item However, both the official and community developed pipelines~\cite{luger, vanderburg, aigrain} tend to focus on studying
-          isolated stars using simple aperture photometry, which tends to perform sub-optimally in crowded fields and on faint stars. \cite{anderson, libralato1, heasley}.
+          isolated stars using simple aperture photometry, which tends to perform sub-optimally in crowded fields and on faint stars. \cite{anderson, libralato1}.
     \item Although Point Spread Function (PSF) photometry methods are well
-          known~\cite{anderson, libralato1, heasley}, open source tools to perform PSF photometry specifically on Kepler and
+          known~\cite{anderson, libralato1}, open source tools to perform PSF photometry specifically on Kepler and
           $\mathcal{K}\mathit{2}$ data are scarce.
           To address this issue, we present an open source PSF photometry toolkit for Kepler and $\mathcal{K}\mathit{2}$,
         and extensible to TESS, as part of the $\mathcal{K}\mathit{2}$ Guest Observer Office data analysis tool, PyKE.
@@ -245,7 +251,7 @@ Uncertainties on the fitted parameters are approximated using the Cram\'er-Rao L
 }
 \end{pcolumn}
 \begin{pcolumn}{0.32}
-\pbox{0.90\textwidth}{65cm}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
+\pbox{0.90\textwidth}{69cm}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
 
 
     \begin{center}
@@ -257,17 +263,17 @@ Uncertainties on the fitted parameters are approximated using the Cram\'er-Rao L
         \end{itemize}
 
         \includegraphics[width=15cm,angle=0]{figs/prf.eps}
-        \includegraphics[width=16.5cm,angle=0]{figs/prf-deg-45.eps}
+        \includegraphics[width=15cm,angle=0]{figs/prf-contour.eps}
 
     \end{center}
             Using the PyKE package in Python, the PSF model for a given detector position can be instantiated using the information
             contained in Kepler Target Pixel File (TPF) header:\\
-        \texttt{>>> from pyke import KeplerTargetPixelFile} \\
-        \texttt{>>> tpf = KeplerTargetPixelFile("PATH\_TO\_TPF")}\\
+        \texttt{>>> from pyke import KeplerTargetPixelFile}\\
+        \texttt{>>> tpf = KeplerTargetPixelFile("PATH")}\\
         \texttt{>>> prf = tpf.get\_prf\_model()}
 
 %%% Section
-        \vspace{1.25cm}
+        \vspace{1.0cm}
 \begin{center}\pbox{0.8\textwidth}{}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=whiteblue,gradmidpoint=1.0,framesep=1em}{\begin{center}\textbf{Crowded K2 Clusters}\end{center}}\end{center}\vspace{1.25cm}
 
 Having instantiated suitable PSF models for a set of stars, we can use PyKE to fit the joint model
@@ -288,7 +294,7 @@ observed during K2 Campaign 9.
 
 \end{pcolumn}
 \begin{pcolumn}{0.32}
-\pbox{0.90\textwidth}{65cm}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
+\pbox{0.90\textwidth}{69cm}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
 
 \begin{center}\pbox{0.8\textwidth}{}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=whiteblue,gradmidpoint=1.0,framesep=1em}{\begin{center}\textbf{Kepler Faint Stars}\end{center}}\end{center}
 \vspace{.5cm}
@@ -298,12 +304,14 @@ also benefits the light curves of faint stars. For example, star \texttt{KIC 644
 is known to contain a small planet, Kepler-1649b~\cite{isabel}.
 Using PSF photometry, we recover the planet signal at a higher SNR.
 Unlike aperture photometry, PSF photometry is not sensitive to the choice
-of an aperture mask (which is significant for faint stars).
+of an aperture mask.
 
+    \begin{center}
 \includegraphics[width=16cm,angle=0]{figs/tpf_kep.eps}
-    \includegraphics[width=16cm,angle=0]{figs/model_kep.eps}
-    \includegraphics[width=16cm,angle=0]{figs/residuals_kep.eps}
-    \includegraphics[width=16cm,angle=0]{figs/faint.eps}
+\includegraphics[width=16cm,angle=0]{figs/model_kep.eps}
+\includegraphics[width=16cm,angle=0]{figs/residuals_kep.eps}
+\includegraphics[width=16cm,angle=0]{figs/faint.eps}
+    \end{center}
 
 \begin{center}\pbox{0.8\textwidth}{}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=whiteblue,gradmidpoint=1.0,framesep=1em}{\begin{center}\textbf{Conclusions}\end{center}}\end{center}
 \vspace{.5cm}
@@ -317,7 +325,7 @@ of an aperture mask (which is significant for faint stars).
 
 %%% References
 \bibliographystyle{unsrt}
-\bibliography{poster.bib}
+    {\small \bibliography{poster.bib}}
 
 }
 \end{pcolumn}

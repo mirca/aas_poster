@@ -86,9 +86,9 @@
 
 \ifanullb
    \setlength{\paperwidth}{119cm}
-   \setlength{\paperheight}{87cm}
+   \setlength{\paperheight}{112cm}
    \setlength{\textwidth}{118cm}
-   \setlength{\textheight}{87cm}
+   \setlength{\textheight}{112cm}
 \else\ifanull
         \setlength{\paperwidth}{118.82cm}
         \setlength{\paperheight}{83.96cm}
@@ -158,7 +158,7 @@
 \renewcommand{\tiny}{\fontsize{12}{14}\selectfont}
 \renewcommand{\scriptsize}{\fontsize{14.4}{18}\selectfont}   
 \renewcommand{\footnotesize}{\fontsize{17.28}{22}\selectfont}
-\renewcommand{\small}{\fontsize{20.74}{25}\selectfont}
+\renewcommand{\small}{\fontsize{23.74}{28}\selectfont}
 \renewcommand{\normalsize}{\fontsize{27.88}{30}\selectfont}
 \renewcommand{\large}{\fontsize{29.86}{37}\selectfont}
 \renewcommand{\Large}{\fontsize{35.83}{45}\selectfont}
@@ -184,7 +184,7 @@
 
 \AtBeginDocument{
 \ifanullb
-   \ifportrait\special{papersize=91.51cm,120cm}\else\special{papersize=120cm,91.51cm}\fi
+   \ifportrait\special{papersize=91.51cm,120cm}\else\special{papersize=120cm,95cm}\fi
 \else\ifanull
         \ifportrait\special{papersize=83.96cm,118.82cm}\else\special{papersize=118.82cm,83.96cm}\fi
      \else\ifaeins
