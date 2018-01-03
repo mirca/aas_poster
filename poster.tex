@@ -154,7 +154,7 @@
 %%% Unisiegel
 \begin{minipage}[c][9cm][c]{0.1\textwidth}
   \begin{center}
-    %\includegraphics[width=7cm,angle=0]{}
+    %\includegraphics[width=7cm,angle=0]{image.pdf}
   \end{center}
 \end{minipage}
 %%% Titel
@@ -245,7 +245,7 @@ Note that it is often necessary to impose prior probability densities on the mod
 
 Uncertainties on the fitted parameters are approximated using the Cram\'er-Rao Lower Bound. Mathematically,
         \begin{equation}
-            cov(\bm{\theta}^{*}(\bm{Y})) \geq \left(\mathbb{E}_{\bm{\theta}}\left[\nabla_{\bm{\theta}}\log p(\bm{Y} | \bm{\theta})\left[\nabla_{\bm{\theta}}\log p(\bm{Y} | \bm{\theta}) \right]^{T}  \right]\right)^{-1}\Bigr|_{\substack{\bm{\theta}=\bm{\theta}^{*}(\bm{y})}}
+            cov(\bm{\theta}^{*}(\bm{Y})) = \left(\mathbb{E}_{\bm{\theta}}\left[\nabla_{\bm{\theta}}\log p(\bm{Y} | \bm{\theta})\left[\nabla_{\bm{\theta}}\log p(\bm{Y} | \bm{\theta}) \right]^{T}  \right]\right)^{-1}\Bigr|_{\substack{\bm{\theta}=\bm{\theta}^{*}(\bm{y})}}
         \end{equation}
 }
 \end{pcolumn}
@@ -275,11 +275,13 @@ Uncertainties on the fitted parameters are approximated using the Cram\'er-Rao L
         \vspace{1.0cm}
 \begin{center}\pbox{0.8\textwidth}{}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=whiteblue,gradmidpoint=1.0,framesep=1em}{\begin{center}\textbf{Crowded K2 Clusters}\end{center}}\end{center}\vspace{1.25cm}
 
-Having instantiated suitable PSF models for a set of stars, we can use PyKE to fit the joint model
-to the data.  In the example shown here, we simultaneously fit five stars in data from the crowded Lagoon Nebula cluster
-observed during K2 Campaign 9.
-For the 14th-magnitude star shown in the center of the cutout below, we find that PSF photometry yields a lightcurve that is $\sim$N times more precise compared to aperture photometry.
-
+Having instantiated suitable PSF models for a set of stars, we can use PyKE to
+fit the joint model to the data.  In the example shown here, we simultaneously
+fit five stars in data from the crowded Lagoon Nebula cluster observed during
+$\mathcal{K}\mathit{2}$ Campaign 9. For the 14th-magnitude star shown in the
+center of the cutout below, we find that PSF photometry yields a lightcurve
+that is $\approx$ 3 times more precise compared to aperture photometry.
+\vspace{1.0cm}
 
     \includegraphics[width=16cm,angle=0]{figs/tpf_c9.eps}
     \includegraphics[width=16cm,angle=0]{figs/model_c9.eps}
@@ -301,12 +303,13 @@ For the 14th-magnitude star shown in the center of the cutout below, we find tha
 \vspace{.5cm}
 
 In addition to being necessary in crowded fields, we find that PSF photometry
-also benefits the light curves of isolated faint stars.
-For example, star \texttt{KIC 6444896}
-is known to contain a small planet, Kepler-1649b~\cite{isabel}.
-Using PSF photometry, we recover the planet signal at a SNR that is $\sim$N times higher compared to the aperture photometry employed by the official Kepler pipeline.
-Although the latter could be improved by tweaking the aperture mask of the source, the fact that PSF photometry is not sensitive to the choice
-of an aperture mask is a significant practical benefit.
+also benefits the light curves of isolated faint stars. For example, star
+\texttt{KIC 6444896} is known to contain a small planet, Kepler-1649b~\cite{isabel}.
+Using PSF photometry, we recover the planet signal which is $\approx$ 1.67 times more precise
+compared to the aperture photometry employed by the official Kepler pipeline.
+Although the latter could be improved by tweaking the aperture mask of the source,
+the fact that PSF photometry is not sensitive to the choice of an aperture mask is
+a significant practical benefit.
 
     \begin{center}
 \includegraphics[width=16cm,angle=0]{figs/tpf_kep.eps}

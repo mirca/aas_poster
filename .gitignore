@@ -7,3 +7,4 @@
 *.ps
 *.dvi
 *.xml
+.DS_Store
