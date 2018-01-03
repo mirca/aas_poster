@@ -149,7 +149,7 @@
 \begin{center}
 \begin{pcolumn}{1}
 
-\pbox{0.98\textwidth}{}{linewidth=2mm,framearc=0.3,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=whiteblue,gradmidpoint=1.0,framesep=1em}{
+\pbox{0.97\textwidth}{}{linewidth=2mm,framearc=0.3,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=whiteblue,gradmidpoint=1.0,framesep=1em}{
 
 %%% Unisiegel
 \begin{minipage}[c][9cm][c]{0.1\textwidth}
@@ -158,20 +158,19 @@
   \end{center}
 \end{minipage}
 %%% Titel
-\begin{minipage}[c][16cm][c]{0.78\textwidth}
+\begin{minipage}[c][9cm][c]{0.78\textwidth}
   \begin{center}
-      {\sc \Huge \textbf{A PSF photometry tool for NASA's Kepler,} $\bm{\mathcal{K}\mathit{2}}$\textbf{, and TESS missions}}\\[7mm]
-      {\Large \textbf{Jos\'e Vin\'icius de Miranda Cardoso}$^{1, 2, 4}$, \textbf{Geert Barentsen}$^{1, 2}$,
+      {\sc \fontsize{75}{60} \textbf{A PSF photometry tool for NASA's Kepler,} $\bm{\mathcal{K}\mathit{2}}$\textbf{, and TESS missions}}\\[7mm]
+      {\Large \textbf{Jos\'e Vin\'icius de Miranda Cardoso}$^{1, 2}$, \textbf{Geert Barentsen}$^{1, 2}$,
        \textbf{Benjamin T. Montet}$^{3, \bm{\star}}$, \textbf{Ann Marie Cody}$^{1, 2}$,}\\
       {\Large
        \textbf{Christina Hedges}$^{1, 2}$, \textbf{Michael Gully-Santiago}$^{1, 2}$, \textbf{Martin Still}$^{4}$, and
        \textbf{Thomas Barclay}$^{5}$}\\
-      {\Large $^{1}$NASA Ames Research Center, Moutain View, CA, USA\\
-       $^{2}$Bay Area Environmental Research Institute, Petaluma, CA, USA\\
-       $^{3}$Department of Astrophysics, University of Chicago, IL, USA\\
-       $^{4}$NASA Headquarters, Washington DC, USA\\
-       $^{5}$NASA Goddard Space Flight Center, Greenbelt, MD, USA\\
-       $^{\bm{\star}}$NASA Sagan Fellow}
+      {\Large $^{1}$NASA Ames Research Center,
+      $^{2}$Bay Area Environmental Research Institute,
+      $^{3}$University of Chicago (NASA Sagan Fellow),
+      $^{4}$NASA Headquarters,
+      $^{5}$NASA Goddard}
   \end{center}
 \end{minipage}
 %%% GK-Logo
@@ -192,20 +191,20 @@
 %%%%%%%%%%%%%%%%%%%%%
 \begin{center}
 \begin{pcolumn}{0.32}
-\pbox{0.90\textwidth}{69cm}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
+\pbox{0.90\textwidth}{75cm}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
 
 \begin{center}\pbox{0.8\textwidth}{}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=whiteblue,gradmidpoint=1.0,framesep=1em}{\begin{center}\textbf{Introduction}\end{center}}\end{center}
 \vspace{0.75cm}
 
 \begin{itemize}
     \item NASA's Kepler and $\mathcal{K}\mathit{2}$ missions have been delivering high-precision time series data for a wide range of stellar types.
-    \item However, both the official and community developed pipelines~\cite{luger, vanderburg, aigrain} tend to focus on studying
+    \item However, both the official and community-developed pipelines~\cite{luger, vanderburg, aigrain} tend to focus on studying
           isolated stars using simple aperture photometry, which tends to perform sub-optimally in crowded fields and on faint stars. \cite{anderson, libralato1}.
     \item Although Point Spread Function (PSF) photometry methods are well
           known~\cite{anderson, libralato1}, open source tools to perform PSF photometry specifically on Kepler and
           $\mathcal{K}\mathit{2}$ data are scarce.
           To address this issue, we present an open source PSF photometry toolkit for Kepler and $\mathcal{K}\mathit{2}$,
-        and extensible to TESS, as part of the $\mathcal{K}\mathit{2}$ Guest Observer Office data analysis tool, PyKE.
+        and extensible to TESS, as part of the $\mathcal{K}\mathit{2}$ Guest Observer Office data analysis toolkit, PyKE.
 \end{itemize}
 
 \vspace{0.75cm}
@@ -251,7 +250,7 @@ Uncertainties on the fitted parameters are approximated using the Cram\'er-Rao L
 }
 \end{pcolumn}
 \begin{pcolumn}{0.32}
-\pbox{0.90\textwidth}{69cm}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
+\pbox{0.90\textwidth}{75cm}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
 
 
     \begin{center}
@@ -277,8 +276,10 @@ Uncertainties on the fitted parameters are approximated using the Cram\'er-Rao L
 \begin{center}\pbox{0.8\textwidth}{}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=whiteblue,gradmidpoint=1.0,framesep=1em}{\begin{center}\textbf{Crowded K2 Clusters}\end{center}}\end{center}\vspace{1.25cm}
 
 Having instantiated suitable PSF models for a set of stars, we can use PyKE to fit the joint model
-to the data.  In the example shown here, we fit data from the crowded Lagoon Nebula cluster
+to the data.  In the example shown here, we simultaneously fit five stars in data from the crowded Lagoon Nebula cluster
 observed during K2 Campaign 9.
+For the 14th-magnitude star shown in the center of the cutout below, we find that PSF photometry yields a lightcurve that is $\sim$N times more precise compared to aperture photometry.
+
 
     \includegraphics[width=16cm,angle=0]{figs/tpf_c9.eps}
     \includegraphics[width=16cm,angle=0]{figs/model_c9.eps}
@@ -294,17 +295,18 @@ observed during K2 Campaign 9.
 
 \end{pcolumn}
 \begin{pcolumn}{0.32}
-\pbox{0.90\textwidth}{69cm}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
+\pbox{0.90\textwidth}{75cm}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
 
 \begin{center}\pbox{0.8\textwidth}{}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=whiteblue,gradmidpoint=1.0,framesep=1em}{\begin{center}\textbf{Kepler Faint Stars}\end{center}}\end{center}
 \vspace{.5cm}
 
 In addition to being necessary in crowded fields, we find that PSF photometry
-also benefits the light curves of faint stars. For example, star \texttt{KIC 6444896}
+also benefits the light curves of isolated faint stars.
+For example, star \texttt{KIC 6444896}
 is known to contain a small planet, Kepler-1649b~\cite{isabel}.
-Using PSF photometry, we recover the planet signal at a higher SNR.
-Unlike aperture photometry, PSF photometry is not sensitive to the choice
-of an aperture mask.
+Using PSF photometry, we recover the planet signal at a SNR that is $\sim$N times higher compared to the aperture photometry employed by the official Kepler pipeline.
+Although the latter could be improved by tweaking the aperture mask of the source, the fact that PSF photometry is not sensitive to the choice
+of an aperture mask is a significant practical benefit.
 
     \begin{center}
 \includegraphics[width=16cm,angle=0]{figs/tpf_kep.eps}
