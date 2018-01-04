@@ -241,10 +241,11 @@ And the log likelihood function is
 
     Hence, the Maximum Likelihood Estimator can be formulated as the following optimization problem
 \begin{align}
-    \bm{\theta}^{*}(\bm{y}) = \argmin_{\bm{\theta} \in \Lambda} \sum_{i=1}^{n}\left(\sum_{j=1}^{m}\lambda_i(\bm{\theta}_j) - y_i\log\sum_{j=1}^{m}\lambda_i(\bm{\theta}_j)\right).
+    \bm{\theta}^{*}(\bm{y}) = \argmin_{\bm{\theta} \in \Lambda} \sum_{i=1}^{n}\left(\sum_{j=1}^{m}\lambda_i(\bm{\theta}_j) - y_i\log\sum_{j=1}^{m}\lambda_i(\bm{\theta}_j)\right),
 \end{align}
-Note that it is often necessary to impose prior probability densities on the model parameters
-    to aid the optimization.
+in which $\Lambda$ is an appropriate subspace.
+
+In our experiments, it turns out to be useful to impose uniform priors for the model parameters.
 
 \vspace{0.75cm}
     \begin{center}
@@ -296,6 +297,8 @@ that is $\approx$ 3 times more precise compared to aperture photometry.
     \includegraphics[width=16cm,angle=0]{figs/model_c9.eps}
     \includegraphics[width=16cm,angle=0]{figs/residuals_c9.eps}
     \includegraphics[width=17cm,angle=0]{figs/lc_c9.eps}
+
+Using the PyKE package in Python, the PSF photometry can be coded as:
 
     \texttt{>>> from pyke.prf import SceneModel, PRFPhotometry}\\
     \texttt{>>> scene = SceneModel(prfs=5*[prf])} \\
