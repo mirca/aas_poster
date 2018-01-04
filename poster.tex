@@ -13,6 +13,7 @@
 \usepackage{float}
 \usepackage{setspace}
 \usepackage{wrapfig}
+\usepackage{graphicx}
 \usepackage{amsmath, amssymb, bm}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \onehalfspacing
@@ -154,13 +155,13 @@
 %%% Unisiegel
 \begin{minipage}[c][9cm][c]{0.1\textwidth}
   \begin{center}
-    %\includegraphics[width=7cm,angle=0]{image.pdf}
+      %\includegraphics[width=7cm,angle=0]{figs/k2.pdf}
   \end{center}
 \end{minipage}
 %%% Titel
 \begin{minipage}[c][9cm][c]{0.78\textwidth}
   \begin{center}
-      {\sc \fontsize{75}{60} \textbf{A PSF photometry tool for NASA's Kepler,} $\bm{\mathcal{K}\mathit{2}}$\textbf{, and TESS missions}}\\[7mm]
+      {\sc \veryHuge \textbf{A PSF photometry tool for NASA's Kepler,} $\bm{\mathcal{K}\mathit{2}}$\textbf{, and TESS missions}}\\[7mm]
       {\Large \textbf{Jos\'e Vin\'icius de Miranda Cardoso}$^{1, 2}$, \textbf{Geert Barentsen}$^{1, 2}$,
        \textbf{Benjamin T. Montet}$^{3, \bm{\star}}$, \textbf{Ann Marie Cody}$^{1, 2}$,}\\
       {\Large
@@ -197,14 +198,20 @@
 \vspace{0.75cm}
 
 \begin{itemize}
-    \item NASA's Kepler and $\mathcal{K}\mathit{2}$ missions have been delivering high-precision time series data for a wide range of stellar types.
-    \item However, both the official and community-developed pipelines~\cite{luger, vanderburg, aigrain} tend to focus on studying
-          isolated stars using simple aperture photometry, which tends to perform sub-optimally in crowded fields and on faint stars. \cite{anderson, libralato1}.
+    \item NASA's Kepler and $\mathcal{K}\mathit{2}$ missions have been
+        delivering high-precision time series data for a wide range of stellar types.
+    \item However, both the official and community-developed
+        pipelines~\cite{luger, vanderburg, aigrain} tend to focus on studying
+        isolated stars using simple aperture photometry, which tends to perform
+        sub-optimally in crowded fields and on faint stars. \cite{anderson, libralato1}.
     \item Although Point Spread Function (PSF) photometry methods are well
-          known~\cite{anderson, libralato1}, open source tools to perform PSF photometry specifically on Kepler and
-          $\mathcal{K}\mathit{2}$ data are scarce.
-          To address this issue, we present an open source PSF photometry toolkit for Kepler and $\mathcal{K}\mathit{2}$,
-        and extensible to TESS, as part of the $\mathcal{K}\mathit{2}$ Guest Observer Office data analysis toolkit, PyKE.
+        known~\cite{anderson, libralato1}, open source tools to perform PSF
+        photometry specifically on Kepler and $\mathcal{K}\mathit{2}$ data are scarce.
+        To address this issue, we present an open source PSF photometry toolkit for
+        Kepler and $\mathcal{K}\mathit{2}$, and extensible to TESS, as part of the
+        $\mathcal{K}\mathit{2}$ Guest Observer Office data analysis toolkit, PyKE,
+        \texttt{https://www.github.com/KeplerGO/pyke}.
+    \item The code for this poster is available at: \\ \texttt{https://www.github.com/mirca/aas\_poster}.
 \end{itemize}
 
 \vspace{0.75cm}
@@ -247,6 +254,7 @@ Uncertainties on the fitted parameters are approximated using the Cram\'er-Rao L
         \begin{equation}
             cov(\bm{\theta}^{*}(\bm{Y})) = \left(\mathbb{E}_{\bm{\theta}}\left[\nabla_{\bm{\theta}}\log p(\bm{Y} | \bm{\theta})\left[\nabla_{\bm{\theta}}\log p(\bm{Y} | \bm{\theta}) \right]^{T}  \right]\right)^{-1}\Bigr|_{\substack{\bm{\theta}=\bm{\theta}^{*}(\bm{y})}}
         \end{equation}
+
 }
 \end{pcolumn}
 \begin{pcolumn}{0.32}
